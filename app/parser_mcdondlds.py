@@ -42,7 +42,3 @@ for product_id in products_ids:
 with open('items.json', 'w', encoding='utf8') as f:
     json.dump(items, f, ensure_ascii=False)
 
-with open('items.json', 'r', encoding='utf8') as f:
-    items = json.load(f)
-    for x in items:
-        print(x["proteins"])

@@ -10,15 +10,17 @@ driver = webdriver.Chrome()
 url = "https://www.mcdonalds.com/ua/uk-ua/eat/fullmenu.html"
 driver.get(url)
 
-products = driver.find_elements(By.CSS_SELECTOR, ".cmp-category__item[data-product-id]")
-products_ids = [product.get_attribute("data-product-id") for product in products]
+products = driver.find_elements(
+    By.CSS_SELECTOR, ".cmp-category__item[data-product-id]")
+products_ids = [product.get_attribute(
+    "data-product-id") for product in products]
 driver.quit()
 
 items = []
 for product_id in products_ids:
     url = f"https://www.mcdonalds.com/dnaapp/itemDetails?country=UA&language=uk&showLiveData=true&item={product_id}"
     headers = {
-    'Referer': f'https://www.mcdonalds.com/ua/uk-ua/product/{product_id}.html',
+        'Referer': f'https://www.mcdonalds.com/ua/uk-ua/product/{product_id}.html',
     }
     response = requests.request("GET", url, headers=headers)
 
@@ -41,4 +43,3 @@ for product_id in products_ids:
         pass
 with open('items.json', 'w', encoding='utf8') as f:
     json.dump(items, f, ensure_ascii=False)
-
